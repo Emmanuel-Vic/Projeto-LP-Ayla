@@ -18,6 +18,8 @@ public class Pedido {
     }
 
     public String toString(){
-        return "\nO pedido foi feito pelo Cliente: "+cliente.getNome()+"\nFoi feito uma Servico descrito como: "+servico.getDescricao()+"\nE foi feito pelo Funcionario(a): "+funcionario.getNome()+"- "+funcionario.getCargo()+" - no dia 14/03/2026";
+        return "\nO pedido foi feito pelo Cliente: "+cliente.getNome()+
+                "\nFoi feito uma Servico descrito como: "+servico.getDescricao()+
+                "\nE foi feito pelo Funcionario(a): "+funcionario.getNome()+"- "+funcionario.getCargo()+ " - no dia 14/03/2026";
     }
 }

@@ -26,9 +26,4 @@ public class Cliente {
     public void setTelefone(String telefone) {this.telefone = telefone;}
     public void setEndereco(String endereco) {this.endereco = endereco;}
     public void setCpf(String cpf) {this.cpf = cpf;}
-
-
-    public Cliente adicionarCliente(String nome, String telef, String ender, String cpf){
-         return new Cliente(nome, telef, ender, cpf);
-    }
 }

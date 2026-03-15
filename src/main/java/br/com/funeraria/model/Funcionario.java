@@ -1,30 +1,28 @@
 package br.com.funeraria.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Funcionario {
+    private static final AtomicInteger contador = new AtomicInteger(1);
     private String nome;
     private String cargo;
-    private String idFuncionario;
+    private int idFuncionario;
 
-    public Funcionario(String nome, String cargo, String idFuncionario){
+    public Funcionario(String nome, String cargo){
         this.nome = nome;
         this.cargo = cargo;
-        this.idFuncionario = idFuncionario;
+        //Defini sempre um valor crescente para gerar novos Ids --> poderia ser feito apenas com um (contador++)
+        this.idFuncionario = contador.getAndIncrement();
     }
 
     public Funcionario(){
-        this("Sem nome", "Não possui cargo", "0");
+        this("Sem nome", "Não possui cargo");
     }
 
     public String getNome() {return nome;}
     public String getCargo() {return cargo;}
-    public String getIdFuncionario() {return idFuncionario;}
+    public int getIdFuncionario() {return idFuncionario;}
 
     public void setNome(String nome) {this.nome = nome;}
     public void setCargo(String cargo) {this.cargo = cargo;}
-    public void setIdFuncionario(String idFuncionario) {this.idFuncionario = idFuncionario;}
-
-    public Funcionario adicionarFuncionario(String nome, String cargo, String idFuncionario){
-        // Criar um gerador de ids para o usuario não precisar gerar um ID
-        return new Funcionario(nome, cargo, idFuncionario);
-    }
 }

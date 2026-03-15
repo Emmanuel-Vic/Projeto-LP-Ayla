@@ -4,13 +4,42 @@ import br.com.funeraria.model.Cliente;
 import br.com.funeraria.model.Funcionario;
 import br.com.funeraria.model.Pedido;
 import br.com.funeraria.model.Servico;
+import br.com.funeraria.service.GerenciamentoFuneraria;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String [] args){
-        Cliente c1 = new Cliente("Pedro Costa", "(99) 99999-9999", "Rio Tinto","999.999.999-99");
-        Funcionario f1 = new Funcionario("Mayara", "Coveiro(a)", "1111111111");
-        Servico s1 = new Servico("Juze morreu e tem que ser enterrado de algum jeito", 2);
-        Pedido p1 = new Pedido(c1, s1, f1, "14/03/2026");
-        System.out.println(p1);
+        GerenciamentoFuneraria sistemaFu = new GerenciamentoFuneraria();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("O que você deseja fazer: " +
+                "\n1 - Cadastrar novo cliente" +
+                "\n2 - Cadastrar novo funcionário" +
+                "\n3 - Cadastrar novo serviço" +
+                "\n4 - Cadastrar novo pedido" +
+                "\n5 - Fazer alterações nas listas");
+        int opcao = Integer.parseInt(sc.nextLine());
+        switch (opcao){
+            //Criando o primeiro caso, cadastramento de um NEW CLIENT
+            case 1:
+                System.out.println("Qual o nome do cliente a ser cadastrado?");
+                String nomeCLiente = sc.nextLine();
+                System.out.println("Qual o telefone deste cliente?");
+                String numeroCliente = sc.nextLine();
+                System.out.println("Qual o endereço deste cliente? (Rua/Av, Número, Bairro, Cidade e Estado)");
+                String enderecoCliente = sc.nextLine();
+                System.out.println("Qual o CPF deste cliente?");
+                String cpfCliente = sc.nextLine();
+                sistemaFu.adicionarCliente(nomeCLiente, numeroCliente, enderecoCliente, cpfCliente);
+                break;
+            case 2:
+                System.out.println("Qual o nome do funcionario a ser cadastrado?");
+                String nomeFuncionario = sc.nextLine();
+                System.out.println("Qual será o cargo deste funcionario?");
+                String nomeCargo = sc.nextLine();
+                sistemaFu.adicionarFuncionario(nomeFuncionario, nomeCargo);
+                break;
+        }
+        sc.close();
     }
 }
