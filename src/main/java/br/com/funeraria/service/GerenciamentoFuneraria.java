@@ -17,28 +17,35 @@ public class GerenciamentoFuneraria {
 
 
     //Consultas --->
-    public void consultarClientes(String nome, String cpf){
+    public boolean consultarClientes(String nome, String cpf){
+        boolean confirm = false;
         for (Cliente c: clientes){
             if (c.getNome().equalsIgnoreCase(nome) && c.getCpf().equalsIgnoreCase(cpf)){
-                System.out.println(c);
+                confirm = true;
             }
         }
+        return confirm;
     }
-    public void consultarFuncionarios(String nome, int idFuncionario){
+    public boolean consultarFuncionarios(String nome, String cargo){
+        boolean confirm = false;
         for (Funcionario f: funcionarios){
-            if (f.getNome().equalsIgnoreCase(nome) && f.getIdFuncionario()==(idFuncionario)){
-                System.out.println(f);
+            if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)){
+                confirm = true;
             }
         }
+        return confirm;
     }
-    public void consultarServicos(String descricao){
+    public boolean consultarServicos(String descricao, double preco){
+        boolean confirm = false;
         for (Servico s: servicos){
-            if (s.getDescricao().equalsIgnoreCase(descricao)){
-                System.out.println(s);
+            if (s.getDescricao().equalsIgnoreCase(descricao) && s.getPreco()==preco){
+                confirm = true;
             }
         }
+        return confirm;
     }
     public void consultarPedidos(){
+        boolean confirm = false;
         for (Pedido p: pedidos){
             System.out.println(p);
         }
