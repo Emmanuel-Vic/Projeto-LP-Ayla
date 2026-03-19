@@ -8,7 +8,7 @@ import br.com.funeraria.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciamentoFuneraria {
+public class GerenciamentoFuneraria implements IGerenciamentoFuneraria{
 
     List<Cliente> clientes = new ArrayList<>();
     List<Funcionario> funcionarios = new ArrayList<>();
@@ -17,38 +17,38 @@ public class GerenciamentoFuneraria {
 
 
     //Consultas --->
-    public boolean consultarClientes(String nome, String cpf){
-        boolean confirm = false;
+    public Cliente consultarClientes(String nome, String cpf){
+        Cliente cliente = null;
         for (Cliente c: clientes){
             if (c.getNome().equalsIgnoreCase(nome) && c.getCpf().equalsIgnoreCase(cpf)){
-                confirm = true;
+                cliente = c;
             }
         }
-        return confirm;
+        return cliente;
     }
-    public boolean consultarFuncionarios(String nome, String cargo){
-        boolean confirm = false;
+    public Funcionario consultarFuncionarios(String nome, String cargo){
+        Funcionario funcionario= null;
         for (Funcionario f: funcionarios){
             if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)){
-                confirm = true;
+                funcionario = f;
             }
         }
-        return confirm;
+        return funcionario;
     }
-    public boolean consultarServicos(String descricao, double preco){
-        boolean confirm = false;
+    public Servico consultarServicos(String descricao, double preco){
+        Servico servico = null;
         for (Servico s: servicos){
             if (s.getDescricao().equalsIgnoreCase(descricao) && s.getPreco()==preco){
-                confirm = true;
+                servico = s;
             }
         }
-        return confirm;
+        return servico;
     }
-    public void consultarPedidos(){
-        boolean confirm = false;
+    public List<Pedido> listarPedidos(){
         for (Pedido p: pedidos){
             System.out.println(p);
         }
+        return pedidos;
     }
     //Consultas <---
 

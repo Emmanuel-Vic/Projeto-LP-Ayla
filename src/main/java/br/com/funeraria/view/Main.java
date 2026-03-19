@@ -37,6 +37,7 @@ public class Main {
                     sistemaFu.adicionarCliente(nomeCLiente, numeroCliente, enderecoCliente, cpfCliente);
                     break;
                 case 2:
+                    //cadastrando novo funcionario
                     System.out.println("Qual o nome do funcionario a ser cadastrado?");
                     String nomeFuncionario = sc.nextLine();
                     System.out.println("Qual será o cargo deste funcionario?");
@@ -44,6 +45,7 @@ public class Main {
                     sistemaFu.adicionarFuncionario(nomeFuncionario, nomeCargo);
                     break;
                 case 3:
+                    //cadastrando novo serviço
                     System.out.println("Como será o serviço oferecido? (Descrição do serviço)");
                     String descricao = sc.nextLine();
                     System.out.println("Qual será o preço deste serviço?");
@@ -51,33 +53,43 @@ public class Main {
                     sistemaFu.adicionarServico(descricao, preco);
                     break;
                 case 4:
+                    //cadastrando novo pedido (precisa de cliente, funcionario e serviço para fazer)
                     System.out.println("Qual é o nome do cliente que irá receber o serviço?");
                     String clienteEscolhi = sc.nextLine();
                     System.out.println("Qual o CPF desse cliente?");
                     String cpfClienteEscolhi = sc.nextLine();
-                    //confirmardor simples
-                    if (sistemaFu.consultarClientes(clienteEscolhi, cpfClienteEscolhi)){
-                        System.out.println("Qual o tipo de Serviço será oferecido?");
-                        String descriEscolhi = sc.nextLine();
-                        System.out.println("Qual o preço desse serviço?");
-                        double precoEscolhi = Double.parseDouble(sc.nextLine());
-                        if (sistemaFu.consultarServicos(descriEscolhi, precoEscolhi)){
-                            System.out.println("Qual funcionario irá ficar responsável por este pedido?");
-                            String funcionarioEscolhi = sc.nextLine();
-                            System.out.println("Qual o cargo do funcionario?");
-                            String cargoEscolhi = sc.nextLine();
-                            if (sistemaFu.consultarFuncionarios(funcionarioEscolhi, cargoEscolhi)){
-                                sistemaFu.adicionarPedido(
-                                        //Tirar esse new, já que não se deve criar um objeto novo para criar um pedido
-                                        //Talvez fazer uma pesquisa com parametros e for-each para achar os objetos!
-                                        new Cliente(clienteEscolhi, "99", "Rua A", cpfClienteEscolhi),
-                                        new Servico(descriEscolhi, precoEscolhi),
-                                        new Funcionario(funcionarioEscolhi, cargoEscolhi),
-                                        "99/99/9999"
-                                );
-                            }
-                        }
+                    Cliente novoClientePedido = sistemaFu.consultarClientes(clienteEscolhi, cpfClienteEscolhi);
+                    if (novoClientePedido == null) {
+                        System.out.println("Cliente não encontrado!");
+                        break;
                     }
+
+                    System.out.println("Qual o tipo de Serviço será oferecido?");
+                    String descriEscolhi = sc.nextLine();
+                    System.out.println("Qual o preço desse serviço?");
+                    double precoEscolhi = Double.parseDouble(sc.nextLine());
+                    Servico novoServicoPedido = sistemaFu.consultarServicos(descriEscolhi, precoEscolhi);
+                    if (novoServicoPedido == null) {
+                        System.out.println("Serviço não encontrado!");
+                        break;
+                    }
+
+                    System.out.println("Qual funcionario irá ficar responsável por este pedido?");
+                    String funcionarioEscolhi = sc.nextLine();
+                    System.out.println("Qual o cargo do funcionario?");
+                    String cargoEscolhi = sc.nextLine();
+                    Funcionario novoFuncionarioPedido = sistemaFu.consultarFuncionarios(funcionarioEscolhi, cargoEscolhi);
+                    if (novoFuncionarioPedido == null) {
+                        System.out.println("Funcionario não encontrado!");
+                        break;
+                    }
+
+                    sistemaFu.adicionarPedido(
+                            novoClientePedido,
+                            novoServicoPedido,
+                            novoFuncionarioPedido,
+                            "99/99/9999"
+                    );
                     break;
                 case 5:
                     break;
