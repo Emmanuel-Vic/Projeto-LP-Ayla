@@ -1,29 +1,50 @@
 package br.com.funeraria.model;
+import java.util.Objects;
 
 public class Cliente {
-    private String nome;
+    private String nomeCliente;
     private String telefone;
     private String endereco;
-    private String cpf;
+    private String cpfCliente;
 
     public Cliente(String nome, String telefone, String endereco, String cpf){
-        this.nome = nome;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.cpf = cpf;
+       this.nomeCliente = nome;
+       this.telefone = telefone;
+       this.endereco = endereco;
+       this.cpfCliente = cpf;
     }
-
-    public Cliente(){
+    public Cliente() {
         this("Sem nome", "Sem telefone", "Sem email", "Sem CPF");
     }
 
-    public String getNome() {return nome;}
+    public String getNomeCliente() {return nomeCliente;}
     public String getTelefone() {return telefone;}
     public String getEndereco() {return endereco;}
-    public String getCpf() {return cpf;}
+    public String getCpfCliente() {return cpfCliente;}
 
-    public void setNome(String nome) {this.nome = nome;}
+    public void setNomeCliente(String nomeCliente) {this.nomeCliente = nomeCliente;}
     public void setTelefone(String telefone) {this.telefone = telefone;}
     public void setEndereco(String endereco) {this.endereco = endereco;}
-    public void setCpf(String cpf) {this.cpf = cpf;}
+    public void setCpfCliente(String cpfCliente) {this.cpfCliente = cpfCliente;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(cpfCliente, cliente.cpfCliente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(cpfCliente);
+    }
+
+    @Override
+    public String toString() {
+        return "O cliente: " + nomeCliente +
+                "\nDe CPF: " + cpfCliente +
+                "\nDe telefone: " + telefone +
+                "\nQue reside em " + endereco +
+                "\nSolicitou um serviço com o atestado: ";
+    }
 }

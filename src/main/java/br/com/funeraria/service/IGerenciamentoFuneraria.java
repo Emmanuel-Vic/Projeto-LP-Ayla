@@ -1,9 +1,6 @@
 package br.com.funeraria.service;
 
-import br.com.funeraria.model.Cliente;
-import br.com.funeraria.model.Funcionario;
-import br.com.funeraria.model.Servico;
-import br.com.funeraria.model.Pedido;
+import br.com.funeraria.model.*;
 
 import java.util.List;
 
@@ -16,5 +13,7 @@ public interface IGerenciamentoFuneraria {
     void adicionarCliente(String nome, String telefone, String endereco, String cpf);
     void adicionarFuncionario(String nome, String cargo);
     void adicionarServico(String descricao, double preco);
-    void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data);
+    void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado);
+    void adicionarAtestadoDeObito(String cpfFinado, String nome, String dataMorte,
+                                  String horaMorte, double altura, String causaMorte);
 }
