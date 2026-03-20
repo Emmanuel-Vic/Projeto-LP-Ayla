@@ -1,9 +1,6 @@
 package br.com.funeraria.view;
 
-import br.com.funeraria.model.Cliente;
-import br.com.funeraria.model.Funcionario;
-import br.com.funeraria.model.Pedido;
-import br.com.funeraria.model.Servico;
+import br.com.funeraria.model.*;
 import br.com.funeraria.service.GerenciamentoFuneraria;
 
 import java.util.Scanner;
@@ -18,7 +15,8 @@ public class Main {
                     "\n2 - Cadastrar novo funcionário" +
                     "\n3 - Cadastrar novo serviço" +
                     "\n4 - Cadastrar novo pedido" +
-                    "\n5 - Fazer alterações nas listas");
+                    "\n5 - Fazer alterações nas listas" +
+                    "\n0 - Sair");
             int opcao = Integer.parseInt(sc.nextLine());
             if (opcao == 0){
                 break;
@@ -83,12 +81,16 @@ public class Main {
                         System.out.println("Funcionario não encontrado!");
                         break;
                     }
+                    System.out.println("Qual a data do pedido?");
+                    String dataPedido = sc.nextLine();
+                    AtestadoDeObito semAtestado = new AtestadoDeObito();
 
                     sistemaFu.adicionarPedido(
                             novoClientePedido,
                             novoServicoPedido,
                             novoFuncionarioPedido,
-                            "99/99/9999"
+                            dataPedido,
+                            semAtestado
                     );
                     break;
                 case 5:

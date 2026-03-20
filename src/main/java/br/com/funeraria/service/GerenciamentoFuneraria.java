@@ -1,73 +1,93 @@
 package br.com.funeraria.service;
 
-import br.com.funeraria.model.Cliente;
-import br.com.funeraria.model.Funcionario;
-import br.com.funeraria.model.Pedido;
-import br.com.funeraria.model.Servico;
+import br.com.funeraria.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciamentoFuneraria implements IGerenciamentoFuneraria{
+public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
 
-    List<Cliente> clientes = new ArrayList<>();
-    List<Funcionario> funcionarios = new ArrayList<>();
-    List<Servico> servicos = new ArrayList<>();
-    List<Pedido> pedidos = new ArrayList<>();
+    protected List<Cliente> clientes = new ArrayList<>();
+    protected List<Funcionario> funcionarios = new ArrayList<>();
+    protected List<Servico> servicos = new ArrayList<>();
+    protected List<Pedido> pedidos = new ArrayList<>();
+    protected List<AtestadoDeObito> atestados = new ArrayList<>();
 
-
-    //Consultas --->
-    public Cliente consultarClientes(String nome, String cpf){
-        Cliente cliente = null;
-        for (Cliente c: clientes){
-            if (c.getNome().equalsIgnoreCase(nome) && c.getCpf().equalsIgnoreCase(cpf)){
-                cliente = c;
+    // Consultas
+    @Override
+    public Cliente consultarClientes(String nome, String cpf) {
+        for (Cliente c : clientes) {
+            if (c.getNomeCliente().equalsIgnoreCase(nome) && c.getCpfCliente().equalsIgnoreCase(cpf)) {
+                return c;
             }
         }
-        return cliente;
+        return null;
     }
-    public Funcionario consultarFuncionarios(String nome, String cargo){
-        Funcionario funcionario= null;
-        for (Funcionario f: funcionarios){
-            if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)){
-                funcionario = f;
+
+    @Override
+    public Funcionario consultarFuncionarios(String nome, String cargo) {
+        for (Funcionario f : funcionarios) {
+            if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)) {
+                return f;
             }
         }
-        return funcionario;
+        return null;
     }
-    public Servico consultarServicos(String descricao, double preco){
-        Servico servico = null;
-        for (Servico s: servicos){
-            if (s.getDescricao().equalsIgnoreCase(descricao) && s.getPreco()==preco){
-                servico = s;
+
+    @Override
+    public Servico consultarServicos(String descricao, double preco) {
+        for (Servico s : servicos) {
+            if (s.getDescricao().equalsIgnoreCase(descricao) && s.getPreco() == preco) {
+                return s;
             }
         }
-        return servico;
+        return null;
     }
-    public List<Pedido> listarPedidos(){
-        for (Pedido p: pedidos){
-            System.out.println(p);
-        }
+
+    @Override
+    public List<Pedido> listarPedidos() {
         return pedidos;
     }
-    //Consultas <---
 
-    //Cadastramentos --->
-    public void adicionarCliente(String nome, String telefone, String endereco, String cpf){
+    // Cadastramentos
+    @Override
+    public void adicionarCliente(String nome, String telefone, String endereco, String cpf) {
         clientes.add(new Cliente(nome, telefone, endereco, cpf));
     }
 
-    public void adicionarFuncionario(String nome, String cargo){
+    @Override
+    public void adicionarFuncionario(String nome, String cargo) {
         funcionarios.add(new Funcionario(nome, cargo));
     }
 
-    public void adicionarServico(String descricao, double preco){
+    @Override
+    public void adicionarServico(String descricao, double preco) {
+        servicos.add(new Servico("Velório", 600.0));
+        servicos.add(new Servico("Enterro", 800.0));
+        servicos.add(new Servico("Cremação", 1000.0));
+        servicos.add(new Servico("Transporte do finado", 700.0));
         servicos.add(new Servico(descricao, preco));
     }
+    public List<Servico> listarServicos() {
+        return servicos;
+    }
 
-    public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data){
+    @Override
+    public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado) {
         pedidos.add(new Pedido(cliente, servico, funcionario, data));
     }
 
-    //Cadastramentos <---
+    @Override
+    public void adicionarAtestadoDeObito(String cpfFinado, String nome, String dataMorte,
+                                         String horaMorte, double altura, String causaMorte) {
+        atestados.add(new AtestadoDeObito(cpfFinado, nome, dataMorte, horaMorte, altura, causaMorte));
+    }
+    public AtestadoDeObito consultarAtestado(String cpfFinado) {
+        for (AtestadoDeObito a : atestados) {
+            if (a.getCpfFinado().equals(cpfFinado)) {
+                return a;
+            }
+        }
+        return null;
+    }
 }
