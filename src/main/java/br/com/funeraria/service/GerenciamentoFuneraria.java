@@ -8,40 +8,66 @@ import br.com.funeraria.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenciamentoFuneraria {
+public class GerenciamentoFuneraria implements IGerenciamentoFuneraria{
 
     List<Cliente> clientes = new ArrayList<>();
     List<Funcionario> funcionarios = new ArrayList<>();
     List<Servico> servicos = new ArrayList<>();
     List<Pedido> pedidos = new ArrayList<>();
 
-    public void consultarClientes(String nome, String cpf){
+
+    //Consultas --->
+    public Cliente consultarClientes(String nome, String cpf){
+        Cliente cliente = null;
         for (Cliente c: clientes){
             if (c.getNome().equalsIgnoreCase(nome) && c.getCpf().equalsIgnoreCase(cpf)){
-                System.out.println(c);
+                cliente = c;
             }
         }
+        return cliente;
     }
-
-    public void consultarFuncionarios(String nome, String idFuncionario){
+    public Funcionario consultarFuncionarios(String nome, String cargo){
+        Funcionario funcionario= null;
         for (Funcionario f: funcionarios){
-            if (f.getNome().equalsIgnoreCase(nome) && f.getIdFuncionario().equalsIgnoreCase(idFuncionario)){
-                System.out.println(f);
+            if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)){
+                funcionario = f;
             }
         }
+        return funcionario;
     }
-
-    public void consultarServicos(String descricao){
+    public Servico consultarServicos(String descricao, double preco){
+        Servico servico = null;
         for (Servico s: servicos){
-            if (s.getDescricao().equalsIgnoreCase(descricao)){
-                System.out.println(s);
+            if (s.getDescricao().equalsIgnoreCase(descricao) && s.getPreco()==preco){
+                servico = s;
             }
         }
+        return servico;
     }
-
-    public void consultarPedidos(){
+    public List<Pedido> listarPedidos(){
         for (Pedido p: pedidos){
             System.out.println(p);
         }
+        return pedidos;
     }
+    //Consultas <---
+
+    //Cadastramentos --->
+    public void adicionarCliente(String nome, String telefone, String endereco, String cpf){
+        clientes.add(new Cliente(nome, telefone, endereco, cpf));
+    }
+
+    public void adicionarFuncionario(String nome, String cargo){
+        funcionarios.add(new Funcionario(nome, cargo));
+    }
+
+    public void adicionarServico(String descricao, double preco){
+        servicos.add(new Servico(descricao, preco));
+    }
+
+    public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data){
+        pedidos.add(new Pedido(cliente, servico, funcionario, data));
+    }
+
+    //Cadastramentos <---
 }
