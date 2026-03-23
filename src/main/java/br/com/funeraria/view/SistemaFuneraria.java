@@ -61,14 +61,50 @@ public class SistemaFuneraria {
                 String cargo = JOptionPane.showInputDialog(null, "Digite o cargo do funcionário");
                 try{
                     ger.adicionarFuncionario(nome, cargo);
-                    JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso");
+                    JOptionPane.showMessageDialog(null, "Funcionário"
+                            // + id do funcionario para que o operador do sistema saiba qual o id dos funcionários
+                            +"cadastrado com sucesso");
                 }catch (FuncionarioJaExiteException e){
                     JOptionPane.showMessageDialog(null,"O Funcionario cadastrado já existe");
                 }
             } else if(inicio.equals("5")){
-                //VOU FAZER!
+                boolean buscas = true;
+                while (buscas) {
+                    String busca = JOptionPane.showInputDialog(null, "====================" +
+                            "\nDigite uma Opção:" +
+                            "\n1. Consultar Cliente" +
+                            "\n2. Consultar Funcionário" +
+                            "\n3. Consultar Serviço" +
+                            "\n4. Sair da busca" +
+                            "\n5. Sair do sistema"+
+                            "\n====================");
+                    if (busca.equals("1")) {
+                        String nome = JOptionPane.showInputDialog(null, "Digite o nome do Cliente que você deseja buscar:");
+                        String cpf = JOptionPane.showInputDialog(null, "Digite o cpf do Cliente que você deseja buscar:");
+                        ger.consultarClientes(nome, cpf);
+                    } else if (busca.equals("2")) {
+                        String nome = JOptionPane.showInputDialog(null, "Digite o nome do Funcionário que você deseja buscar:");
+                        String cargo = JOptionPane.showInputDialog(null, "Digite o cargo do Funcionário que você deseja buscar:");
+                        ger.consultarFuncionarios(nome, cargo);
+                    } else if (busca.equals("3")) {
+                        String descricao = JOptionPane.showInputDialog(null, "Digite o Serviço que você deseja buscar:");
+                        double preco = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o preço do Swerviço que você deseja buscar:"));
+                        ger.consultarServicos(descricao, preco);
+                    } else if (busca.equals("4")) {
+                        buscas = false;
+                    } else if(busca.equals("5")){
+                        continuar = false;
+                    } else{
+                        JOptionPane.showMessageDialog(null,"Opção inválida");
+                    }
+                }
             } else if(inicio.equals("6")){
-                //VOU FAZER!
+                String cpfCliente = JOptionPane.showInputDialog(null, "Digite o CPF do Cliente");
+                String descricao =  JOptionPane.showInputDialog(null, "Digite o Serviço");
+                String idfuncionario = JOptionPane.showInputDialog(null, "Digite o id do funcionário");
+                String dataHoje = JOptionPane.showInputDialog(null, "Digite a data de hoje");
+                String cpfFinado = JOptionPane.showInputDialog(null, "Digite o CPF do Finado");
+                //VOU COMPLETAR
             } else if(inicio.equals("7")){
                 continuar = false;
             } else{

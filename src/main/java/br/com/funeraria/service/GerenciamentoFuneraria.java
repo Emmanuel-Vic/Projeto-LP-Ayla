@@ -62,10 +62,6 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
 
     @Override
     public void adicionarServico(String descricao, double preco) {
-        servicos.add(new Servico("Velório", 600.0));
-        servicos.add(new Servico("Enterro", 800.0));
-        servicos.add(new Servico("Cremação", 1000.0));
-        servicos.add(new Servico("Transporte do finado", 700.0));
         servicos.add(new Servico(descricao, preco));
     }
     public List<Servico> listarServicos() {
@@ -81,13 +77,5 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
     public void adicionarAtestadoDeObito(String cpfFinado, String nome, String dataMorte,
                                          String horaMorte, double altura, String causaMorte) {
         atestados.add(new AtestadoDeObito(cpfFinado, nome, dataMorte, horaMorte, altura, causaMorte));
-    }
-    public AtestadoDeObito consultarAtestado(String cpfFinado) {
-        for (AtestadoDeObito a : atestados) {
-            if (a.getCpfFinado().equals(cpfFinado)) {
-                return a;
-            }
-        }
-        return null;
     }
 }
