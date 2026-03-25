@@ -28,18 +28,6 @@ public class Cliente {
     public void setCpfCliente(String cpfCliente) {this.cpfCliente = cpfCliente;}
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(cpfCliente, cliente.cpfCliente);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(cpfCliente);
-    }
-
-    @Override
     public String toString() {
         return "O cliente: " + nomeCliente +
                 "\nDe CPF: " + cpfCliente +
