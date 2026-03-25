@@ -1,9 +1,6 @@
 package br.com.funeraria.view;
 
-import br.com.funeraria.model.AtestadoJaExiteException;
-import br.com.funeraria.model.ClienteJaExixteException;
-import br.com.funeraria.model.FuncionarioJaExiteException;
-import br.com.funeraria.model.ServicoJaExisteExcepitino;
+import br.com.funeraria.model.*;
 import br.com.funeraria.service.GerenciamentoFuneraria;
 
 import javax.swing.*;
@@ -81,18 +78,19 @@ public class SistemaFuneraria {
                     if (busca.equals("1")) {
                         String nome = JOptionPane.showInputDialog(null, "Digite o nome do Cliente que você deseja buscar:");
                         String cpf = JOptionPane.showInputDialog(null, "Digite o cpf do Cliente que você deseja buscar:");
-                        ger.consultarClientes(nome, cpf);
+                        JOptionPane.showMessageDialog( null, ger.consultarClientes(nome, cpf));
                     } else if (busca.equals("2")) {
                         String nome = JOptionPane.showInputDialog(null, "Digite o nome do Funcionário que você deseja buscar:");
                         String cargo = JOptionPane.showInputDialog(null, "Digite o cargo do Funcionário que você deseja buscar:");
-                        ger.consultarFuncionarios(nome, cargo);
+                        JOptionPane.showMessageDialog( null, ger.consultarFuncionarios(nome, cargo));
                     } else if (busca.equals("3")) {
                         String descricao = JOptionPane.showInputDialog(null, "Digite o Serviço que você deseja buscar:");
                         double preco = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o preço do Swerviço que você deseja buscar:"));
-                        ger.consultarServicos(descricao, preco);
+                        JOptionPane.showMessageDialog( null, ger.consultarServicos(descricao, preco));
                     } else if (busca.equals("4")) {
                         buscas = false;
                     } else if(busca.equals("5")){
+                        buscas = false;
                         continuar = false;
                     } else{
                         JOptionPane.showMessageDialog(null,"Opção inválida");
@@ -100,11 +98,32 @@ public class SistemaFuneraria {
                 }
             } else if(inicio.equals("6")){
                 String cpfCliente = JOptionPane.showInputDialog(null, "Digite o CPF do Cliente");
-                String descricao =  JOptionPane.showInputDialog(null, "Digite o Serviço");
-                String idfuncionario = JOptionPane.showInputDialog(null, "Digite o id do funcionário");
-                String dataHoje = JOptionPane.showInputDialog(null, "Digite a data de hoje");
-                String cpfFinado = JOptionPane.showInputDialog(null, "Digite o CPF do Finado");
-                //VOU COMPLETAR
+                Cliente cpfEscolhido = ger.validarCPFCliente(cpfCliente);
+                if (cpfEscolhido != null){
+                    String descricao =  JOptionPane.showInputDialog(null, "Digite o Serviço");
+                    Servico servEscolhido = ger.validarDescriServico(descricao);
+                    if (servEscolhido != null){
+                        int idfuncionario = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do funcionário"));
+                        Funcionario funcEscolhido = ger.validarIdFuncionario(idfuncionario);
+                        if (funcEscolhido != null){
+                            String dataHoje = JOptionPane.showInputDialog(null, "Digite a data de hoje");
+                            String cpfFinado = JOptionPane.showInputDialog(null, "Digite o CPF do Finado");
+                            AtestadoDeObito atestadoEscolhi = ger.validarAtestadoObito(cpfFinado);
+                            if (atestadoEscolhi != null){
+                                ger.adicionarPedido(cpfEscolhido, servEscolhido, funcEscolhido, dataHoje, atestadoEscolhi);
+                                JOptionPane.showMessageDialog(null, "Pedido adicionado com sucesso!");
+                            } else{
+                                JOptionPane.showMessageDialog(null, "CPF do finado não localizado!");
+                            }
+                        } else{
+                            JOptionPane.showMessageDialog(null, "Funcionario não localizado!");
+                        }
+                    } else{
+                        JOptionPane.showMessageDialog(null, "Serviço não localizado!");
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(null, "Esse CPF não foi localizado no registro!");
+                }
             } else if(inicio.equals("7")){
                 continuar = false;
             } else{

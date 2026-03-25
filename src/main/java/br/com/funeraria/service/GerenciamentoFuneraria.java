@@ -78,4 +78,43 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
                                          String horaMorte, double altura, String causaMorte) {
         atestados.add(new AtestadoDeObito(cpfFinado, nome, dataMorte, horaMorte, altura, causaMorte));
     }
+
+
+    //Validamento de atributos
+
+    public Cliente validarCPFCliente(String cpf){
+        for (Cliente c: this.clientes){
+            if (c.getCpfCliente().equals(cpf)){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public Servico validarDescriServico(String descri){
+        for (Servico s: this.servicos){
+            if (s.getDescricao().equals(descri)){
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public Funcionario validarIdFuncionario(int id){
+        for (Funcionario f: this.funcionarios){
+            if (f.getIdFuncionario() == id){
+                return f;
+            }
+        }
+        return null;
+    }
+
+    public AtestadoDeObito validarAtestadoObito(String cpfObito){
+        for (AtestadoDeObito a: this.atestados){
+            if (a.getCpfFinado().equals(cpfObito)){
+                return a;
+            }
+        }
+        return null;
+    }
 }
