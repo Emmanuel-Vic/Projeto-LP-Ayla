@@ -44,6 +44,10 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
         return null;
     }
 
+    public List<Servico> listarServicos() {
+        return servicos;
+    }
+
     @Override
     public List<Pedido> listarPedidos() {
         return pedidos;
@@ -51,32 +55,34 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
 
     // Cadastramentos
     @Override
-    public void adicionarCliente(String nome, String telefone, String endereco, String cpf) {
+    public void adicionarCliente(String nome, String telefone, String endereco, String cpf) throws ClienteJaExixteException{
         clientes.add(new Cliente(nome, telefone, endereco, cpf));
+        throw new ClienteJaExixteException("O Cliente cadastrado já existe!");
     }
 
     @Override
-    public void adicionarFuncionario(String nome, String cargo) {
+    public void adicionarFuncionario(String nome, String cargo) throws FuncionarioJaExiteException{
         funcionarios.add(new Funcionario(nome, cargo));
+        throw new FuncionarioJaExiteException("O Funcionario cadastrado já existe!");
     }
 
     @Override
-    public void adicionarServico(String descricao, double preco) {
+    public void adicionarServico(String descricao, double preco) throws ServicoJaExisteExcepitino{
         servicos.add(new Servico(descricao, preco));
-    }
-    public List<Servico> listarServicos() {
-        return servicos;
+        throw new ServicoJaExisteExcepitino("O Serviço cadastrado já existe!");
     }
 
     @Override
-    public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado) {
+    public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado) throws PedidoJaExisteException{
         pedidos.add(new Pedido(cliente, servico, funcionario, data));
+        throw new PedidoJaExisteException("Esse pedido cadastrado já existe!");
     }
 
     @Override
     public void adicionarAtestadoDeObito(String cpfFinado, String nome, String dataMorte,
-                                         String horaMorte, double altura, String causaMorte) {
+                                         String horaMorte, double altura, String causaMorte) throws AtestadoJaExiteException {
         atestados.add(new AtestadoDeObito(cpfFinado, nome, dataMorte, horaMorte, altura, causaMorte));
+        throw new AtestadoJaExiteException("Esse Atestado de Obito já está cadastrado!");
     }
 
 
