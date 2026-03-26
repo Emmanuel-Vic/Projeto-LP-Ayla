@@ -31,7 +31,7 @@ public class SistemaFuneraria {
                     ger.adicionarAtestadoDeObito(cpfFinado, nomeFinado, dataMorte, horaMorte, altura, causaMorte);
                     JOptionPane.showMessageDialog(null, "Atestado de Óbito cadastrado com sucesso!");
                 } catch (AtestadoJaExiteException e){
-                    JOptionPane.showMessageDialog(null,"O Atestado de Óbito cadastrado já existe");
+                    JOptionPane.showMessageDialog(null,e.getMessage());
                 }
             } else if(inicio.equals("2")) {
                 String nomeCliente = JOptionPane.showInputDialog(null, "Diegite o nome do Cliente");
@@ -42,7 +42,7 @@ public class SistemaFuneraria {
                     ger.adicionarCliente(nomeCliente, telefone, endereco,cpfCliente);
                     JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
                 } catch (ClienteJaExixteException e){
-                    JOptionPane.showMessageDialog(null,"O Cliente cadastrado já existe");
+                    JOptionPane.showMessageDialog(null,e.getMessage());
                 }
             } else if(inicio.equals("3")){
                 String descricao = JOptionPane.showInputDialog(null,"Como será o serviço oferecido? (Descrição do serviço):");
@@ -51,7 +51,7 @@ public class SistemaFuneraria {
                     ger.adicionarServico(descricao, valor);
                     JOptionPane.showMessageDialog(null, "Serviço cadastrado com sucesso!");
                 } catch (ServicoJaExisteExcepitino e){
-                    JOptionPane.showMessageDialog(null,"O Serviço cadastrado já existe");
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             } else if(inicio.equals("4")){
                 String nome = JOptionPane.showInputDialog(null, "Digite o nome do funcionário");
@@ -62,7 +62,7 @@ public class SistemaFuneraria {
                             // + id do funcionario para que o operador do sistema saiba qual o id dos funcionários
                             +"cadastrado com sucesso");
                 }catch (FuncionarioJaExiteException e){
-                    JOptionPane.showMessageDialog(null,"O Funcionario cadastrado já existe");
+                    JOptionPane.showMessageDialog(null,e.getMessage());
                 }
             } else if(inicio.equals("5")){
                 boolean buscas = true;
@@ -110,8 +110,12 @@ public class SistemaFuneraria {
                             String cpfFinado = JOptionPane.showInputDialog(null, "Digite o CPF do Finado");
                             AtestadoDeObito atestadoEscolhi = ger.validarAtestadoObito(cpfFinado);
                             if (atestadoEscolhi != null){
-                                ger.adicionarPedido(cpfEscolhido, servEscolhido, funcEscolhido, dataHoje, atestadoEscolhi);
-                                JOptionPane.showMessageDialog(null, "Pedido adicionado com sucesso!");
+                                try {
+                                    ger.adicionarPedido(cpfEscolhido, servEscolhido, funcEscolhido, dataHoje, atestadoEscolhi);
+                                    JOptionPane.showMessageDialog(null, "Pedido adicionado com sucesso!");
+                                } catch (PedidoJaExisteException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage());
+                                }
                             } else{
                                 JOptionPane.showMessageDialog(null, "CPF do finado não localizado!");
                             }

@@ -1,6 +1,6 @@
 package br.com.funeraria.model;
 
-public class Pedido<dadosDoFinado> {
+public class Pedido {
     private Cliente cliente;
     private Servico servico;
     private Funcionario funcionario;
