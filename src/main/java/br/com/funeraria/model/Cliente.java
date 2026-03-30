@@ -39,9 +39,9 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente: " + this.nomeCliente +
-                "\nDe CPF: " + this.cpfCliente +
-                "\nDe telefone: " + this.telefone +
-                "\nQue reside em " + this.endereco;
+        return "Cliente: " + nomeCliente +
+                "\nDe CPF: " + cpfCliente +
+                "\nDe telefone: " + telefone +
+                "\nQue reside em " + endereco;
     }
 }

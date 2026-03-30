@@ -27,8 +27,8 @@ public class Funcionario {
     public void setCargo(String cargo) {this.cargo = cargo;}
 
     public String toString(){
-        return "Funcionário: " + this.nome +
-                "\nNo cargo de: " + this.cargo +
-                "\nDe Id: " + this.idFuncionario;
+        return "Funcionário: " + nome +
+                "\nNo cargo de: " + cargo +
+                "\nDe Id: " + idFuncionario;
     }
 }

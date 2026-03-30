@@ -20,8 +20,8 @@ public class Servico {
     public void setDisponivel(boolean disponivel) {this.disponivel = disponivel;}
 
     public String toString(){
-        return "Serviço: " + this.descricao +
-                "\nNo preço de: " + this.preco +
-                "\nEstar disponível: " + this.disponivel;
+        return "Serviço: " + descricao +
+                "\nNo preço de: " + preco +
+                "\nEstar disponível: " + disponivel;
     }
 }
