@@ -2,12 +2,23 @@ package br.com.funeraria.view;
 
 import br.com.funeraria.model.*;
 import br.com.funeraria.service.GerenciamentoFuneraria;
+import br.com.funeraria.util.ArquivoUtils;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SistemaFuneraria {
     public static void main(String[] args) {
         GerenciamentoFuneraria ger = new GerenciamentoFuneraria();
+        List<Cliente> clientesArquivo = new ArquivoUtils().carregar();
+
+        for (Cliente c : clientesArquivo) {
+            // Adiciona na lista interna do gerenciador
+            if (ger.validarCPFCliente(c.getCpfCliente()) == null) {
+                ger.getClientes().add(c);
+            }
+        }
         boolean continuar = true;
         while (continuar) {
             String inicio = JOptionPane.showInputDialog(null,  "====================" +
@@ -18,9 +29,13 @@ public class SistemaFuneraria {
                     "\n4. Cadastrar Funcionário" +
                     "\n5. Buscar" +
                     "\n6. Novo pedido" +
-                    "\n7. Sair" +
+                    "\n7. Listar Clientes" +
+                    "\n8. Sair e Salvar" +
                     "\n====================");
-            if (inicio.equals("1")) {
+            if (inicio == null) {
+                continuar = false;
+                JOptionPane.showMessageDialog(null, "Saindo do sistema...");
+            } else if (inicio.equals("1")) {
                 String cpfFinado = JOptionPane.showInputDialog(null, "Digite o CPF do Finado: ");
                 String nomeFinado =  JOptionPane.showInputDialog(null, "Digite o nome do Finado: ");
                 String dataMorte = JOptionPane.showInputDialog(null, "Digite a data da Morte");
@@ -40,6 +55,8 @@ public class SistemaFuneraria {
                 String cpfCliente = JOptionPane.showInputDialog(null, "Digite o CPF do Cliente");
                 try{
                     ger.adicionarCliente(nomeCliente, telefone, endereco,cpfCliente);
+                    ArquivoUtils.adicionarLinha("clientes.txt",
+                            nomeCliente + ";" + telefone + ";" + endereco + ";" + cpfCliente);
                     JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
                 } catch (ClienteJaExixteException e){
                     JOptionPane.showMessageDialog(null,e.getMessage());
@@ -85,7 +102,7 @@ public class SistemaFuneraria {
                         JOptionPane.showMessageDialog( null, ger.consultarFuncionarios(nome, cargo));
                     } else if (busca.equals("3")) {
                         String descricao = JOptionPane.showInputDialog(null, "Digite o Serviço que você deseja buscar:");
-                        double preco = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o preço do Swerviço que você deseja buscar:"));
+                        double preco = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o preço do Serviço que você deseja buscar:"));
                         JOptionPane.showMessageDialog( null, ger.consultarServicos(descricao, preco));
                     } else if (busca.equals("4")) {
                         buscas = false;
@@ -129,6 +146,27 @@ public class SistemaFuneraria {
                     JOptionPane.showMessageDialog(null, "Esse CPF não foi localizado no registro!");
                 }
             } else if(inicio.equals("7")){
+                List<Cliente> lista = ger.getClientes();
+
+                String resultado = "";
+                for (Cliente c : lista) {
+                    resultado += c.getNomeCliente() + " - " + c.getCpfCliente() + "\n";
+                }
+
+                JOptionPane.showMessageDialog(null, resultado);
+            }  else if(inicio.equals("8")) {
+                List<String> linhas = new ArrayList<>();
+
+                for (Cliente c : ger.getClientes()) {
+                    linhas.add(
+                            c.getNomeCliente() + ";" +
+                                    c.getTelefone() + ";" +
+                                    c.getEndereco() + ";" +
+                                    c.getCpfCliente()
+                    );
+                }
+
+                ArquivoUtils.escreverArquivo("clientes.txt", linhas);
                 continuar = false;
             } else{
                 JOptionPane.showMessageDialog(null,"Opção inválida");

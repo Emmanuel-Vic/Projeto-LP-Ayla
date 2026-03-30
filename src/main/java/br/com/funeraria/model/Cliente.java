@@ -27,12 +27,21 @@ public class Cliente {
     public void setEndereco(String endereco) {this.endereco = endereco;}
     public void setCpfCliente(String cpfCliente) {this.cpfCliente = cpfCliente;}
 
+    public static Cliente fromFileString(String linha) {
+        String[] partes = linha.split(";");
+
+        Cliente cliente = new Cliente();
+        cliente.setNomeCliente(partes[0]);
+        cliente.setCpfCliente(partes[1]);
+
+        return cliente;
+    }
+
     @Override
     public String toString() {
-        return "O cliente: " + nomeCliente +
-                "\nDe CPF: " + cpfCliente +
-                "\nDe telefone: " + telefone +
-                "\nQue reside em " + endereco +
-                "\nSolicitou um serviço com o atestado: ";
+        return "Cliente: " + this.nomeCliente +
+                "\nDe CPF: " + this.cpfCliente +
+                "\nDe telefone: " + this.telefone +
+                "\nQue reside em " + this.endereco;
     }
 }

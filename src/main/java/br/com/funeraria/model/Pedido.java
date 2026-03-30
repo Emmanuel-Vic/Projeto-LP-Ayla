@@ -7,7 +7,7 @@ public class Pedido {
     private String data;
     private AtestadoDeObito dadosFinado;
 
-    public Pedido(Cliente cliente, Servico servico, Funcionario funcionario, String data){
+    public Pedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado){
         this.cliente = cliente;
         this.servico = servico;
         this.funcionario = funcionario;
@@ -15,14 +15,17 @@ public class Pedido {
         this.dadosFinado = dadosFinado;
     }
 
-    public Pedido cadastrarPedido(Cliente c, Servico s, Funcionario f, String data, AtestadoDeObito dadosFinado){
-        return new Pedido(c, s, f, data);
-    }
+    public Cliente getCliente() {return cliente;}
+    public Servico getServico() {return servico;}
+    public Funcionario getFuncionario() {return funcionario;}
+    public String getData() {return data;}
+    public AtestadoDeObito getDadosFinado() {return dadosFinado;}
+
 
     public String toString(){
-        return "\nO pedido foi feito pelo Cliente: "+cliente.getNomeCliente()+
-                "\nFoi feito uma Servico descrito como: "+servico.getDescricao()+
-                "\nE foi feito pelo Funcionario(a): "+funcionario.getNome()+"- "+funcionario.getCargo()+ " - na data " + this.data +
-                "\nPara o finado cujo o atestado de Óbito é" + dadosFinado.toString();
+        return "\nO pedido foi feito pelo Cliente: "+this.cliente.getNomeCliente()+
+                "\nFoi feito uma Servico descrito como: "+this.servico.getDescricao()+
+                "\nE foi feito pelo Funcionario(a): "+this.funcionario.getNome()+"- "+this.funcionario.getCargo()+ " - na data " + this.data +
+                "\nPara o finado cujo o atestado de Óbito é" + this.dadosFinado.toString();
     }
 }
