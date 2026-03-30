@@ -61,10 +61,10 @@ public class AtestadoDeObito {
 
     @Override
     public String toString() {
-        return "Atestado de Óbito do finado: " + nomeFinado  +
-                "\nCPF: "+ cpfFinado  +
-                "\nVeio a óbito na data " + dataMorte  + "às " + horaMorte +
-                "\nAltura: " + altura + "m de altura" +
-                "\nCausa da Morte:" + causaMorte;
+        return "Atestado de Óbito do finado: " + this.nomeFinado  +
+                "\nCPF: "+ this.cpfFinado  +
+                "\nVeio a óbito na data " + this.dataMorte  + "às " + this.horaMorte +
+                "\nAltura: " + this.altura + "m de altura" +
+                "\nCausa da Morte:" + this.causaMorte;
     }
 }

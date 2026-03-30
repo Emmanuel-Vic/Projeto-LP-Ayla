@@ -25,4 +25,10 @@ public class Funcionario {
 
     public void setNome(String nome) {this.nome = nome;}
     public void setCargo(String cargo) {this.cargo = cargo;}
+
+    public String toString(){
+        return "Funcionário: " + this.nome +
+                "\nNo cargo de: " + this.cargo +
+                "\nDe Id: " + this.idFuncionario;
+    }
 }

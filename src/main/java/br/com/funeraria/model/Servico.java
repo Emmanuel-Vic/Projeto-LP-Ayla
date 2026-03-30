@@ -19,7 +19,9 @@ public class Servico {
     public void setDescricao(String descricao) {this.descricao = descricao;}
     public void setDisponivel(boolean disponivel) {this.disponivel = disponivel;}
 
-    public Servico adicionarServico(String descricao, double preco){
-        return new Servico(descricao, preco);
+    public String toString(){
+        return "Serviço: " + this.descricao +
+                "\nNo preço de: " + this.preco +
+                "\nEstar disponível: " + this.disponivel;
     }
 }

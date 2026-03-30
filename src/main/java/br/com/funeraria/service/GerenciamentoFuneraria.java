@@ -13,6 +13,13 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
     protected List<Pedido> pedidos = new ArrayList<>();
     protected List<AtestadoDeObito> atestados = new ArrayList<>();
 
+
+    public List<Cliente> getClientes() {return clientes;}
+    public List<Funcionario> getFuncionarios() {return funcionarios;}
+    public List<Servico> getServicos() {return servicos;}
+    public List<Pedido> getPedidos() {return pedidos;}
+    public List<AtestadoDeObito> getAtestados() {return atestados;}
+
     // Consultas
     @Override
     public Cliente consultarClientes(String nome, String cpf) {
@@ -44,10 +51,6 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
         return null;
     }
 
-    public List<Servico> listarServicos() {
-        return servicos;
-    }
-
     @Override
     public List<Pedido> listarPedidos() {
         return pedidos;
@@ -56,38 +59,58 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
     // Cadastramentos
     @Override
     public void adicionarCliente(String nome, String telefone, String endereco, String cpf) throws ClienteJaExixteException{
+        for (Cliente c: clientes){
+            if (c.getCpfCliente().equals(cpf)){
+                throw new ClienteJaExixteException("O Cliente cadastrado já existe!");
+            }
+        }
         clientes.add(new Cliente(nome, telefone, endereco, cpf));
-        throw new ClienteJaExixteException("O Cliente cadastrado já existe!");
     }
 
     @Override
     public void adicionarFuncionario(String nome, String cargo) throws FuncionarioJaExiteException{
+        for (Funcionario f: funcionarios){
+            if (f.getNome().equalsIgnoreCase(nome) && f.getCargo().equalsIgnoreCase(cargo)){
+                throw new FuncionarioJaExiteException("O Funcionario cadastrado já existe!");
+            }
+        }
         funcionarios.add(new Funcionario(nome, cargo));
-        throw new FuncionarioJaExiteException("O Funcionario cadastrado já existe!");
     }
 
     @Override
     public void adicionarServico(String descricao, double preco) throws ServicoJaExisteExcepitino{
+        for (Servico s: servicos){
+            if (s.getDescricao().equalsIgnoreCase(descricao)){
+                throw new ServicoJaExisteExcepitino("O Serviço cadastrado já existe!");
+            }
+        }
         servicos.add(new Servico(descricao, preco));
-        throw new ServicoJaExisteExcepitino("O Serviço cadastrado já existe!");
     }
 
     @Override
     public void adicionarPedido(Cliente cliente, Servico servico, Funcionario funcionario, String data, AtestadoDeObito dadosFinado) throws PedidoJaExisteException{
-        pedidos.add(new Pedido(cliente, servico, funcionario, data));
-        throw new PedidoJaExisteException("Esse pedido cadastrado já existe!");
+
+        Pedido novoPedido = new Pedido(cliente, servico, funcionario, data, dadosFinado);
+
+        if (existePedido(novoPedido)){
+            throw new PedidoJaExisteException("Esse pedido cadastrado já existe!");
+        }
+        pedidos.add(novoPedido);
     }
 
     @Override
     public void adicionarAtestadoDeObito(String cpfFinado, String nome, String dataMorte,
                                          String horaMorte, double altura, String causaMorte) throws AtestadoJaExiteException {
+        for (AtestadoDeObito at: atestados){
+            if (at.getCpfFinado().equalsIgnoreCase(cpfFinado)){
+                throw new AtestadoJaExiteException("Esse Atestado de Obito já está cadastrado!");
+            }
+        }
         atestados.add(new AtestadoDeObito(cpfFinado, nome, dataMorte, horaMorte, altura, causaMorte));
-        throw new AtestadoJaExiteException("Esse Atestado de Obito já está cadastrado!");
     }
 
 
     //Validamento de atributos
-
     public Cliente validarCPFCliente(String cpf){
         for (Cliente c: this.clientes){
             if (c.getCpfCliente().equals(cpf)){
@@ -122,5 +145,17 @@ public class GerenciamentoFuneraria implements IGerenciamentoFuneraria {
             }
         }
         return null;
+    }
+
+    public boolean existePedido(Pedido novoPedido) {
+        for (Pedido p : pedidos) {
+            if (p.getCliente().getCpfCliente().equalsIgnoreCase(novoPedido.getCliente().getCpfCliente()) &&
+                    p.getServico().getDescricao().equalsIgnoreCase(novoPedido.getServico().getDescricao()) &&
+                    p.getFuncionario().getIdFuncionario() == novoPedido.getFuncionario().getIdFuncionario() &&
+                    p.getData().equals(novoPedido.getData())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
