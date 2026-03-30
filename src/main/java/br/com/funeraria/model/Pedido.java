@@ -23,9 +23,9 @@ public class Pedido {
 
 
     public String toString(){
-        return "\nO pedido foi feito pelo Cliente: "+this.cliente.getNomeCliente()+
-                "\nFoi feito uma Servico descrito como: "+this.servico.getDescricao()+
-                "\nE foi feito pelo Funcionario(a): "+this.funcionario.getNome()+"- "+this.funcionario.getCargo()+ " - na data " + this.data +
-                "\nPara o finado cujo o atestado de Óbito é" + this.dadosFinado.toString();
+        return "\nO pedido foi feito pelo Cliente: "+cliente.getNomeCliente()+
+                "\nFoi feito uma Servico descrito como: "+servico.getDescricao()+
+                "\nE foi feito pelo Funcionario(a): "+funcionario.getNome()+"- "+funcionario.getCargo()+ " - na data " + data +
+                "\nPara o finado cujo o atestado de Óbito é" + dadosFinado.toString();
     }
 }
