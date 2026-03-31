@@ -11,6 +11,10 @@ public class Servico {
         this.disponivel = true;
     }
 
+    public Servico(){
+        this("", 0.0);
+    }
+
     public String getDescricao() {return descricao;}
     public double getPreco() {return preco;}
     public boolean isDisponivel() {return disponivel;}
@@ -18,6 +22,16 @@ public class Servico {
     public void setPreco(double preco) {this.preco = preco;}
     public void setDescricao(String descricao) {this.descricao = descricao;}
     public void setDisponivel(boolean disponivel) {this.disponivel = disponivel;}
+
+    public static Servico fromFileString(String linha) {
+        String[] partes = linha.split(";");
+
+        Servico servico = new Servico();
+        servico.setDescricao(partes[0]);
+        servico.setPreco(Double.parseDouble(partes[1]));
+
+        return servico;
+    }
 
     public String toString(){
         return "Serviço: " + descricao +
