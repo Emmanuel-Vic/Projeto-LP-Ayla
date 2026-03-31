@@ -14,7 +14,7 @@ public class Cliente {
        this.cpfCliente = cpf;
     }
     public Cliente() {
-        this("Sem nome", "Sem telefone", "Sem email", "Sem CPF");
+        this("", "", "", "");
     }
 
     public String getNomeCliente() {return nomeCliente;}
@@ -32,7 +32,9 @@ public class Cliente {
 
         Cliente cliente = new Cliente();
         cliente.setNomeCliente(partes[0]);
-        cliente.setCpfCliente(partes[1]);
+        cliente.setTelefone(partes[1]);
+        cliente.setEndereco(partes[2]);
+        cliente.setCpfCliente(partes[3]);
 
         return cliente;
     }

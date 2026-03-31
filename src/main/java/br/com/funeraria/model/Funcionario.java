@@ -16,7 +16,7 @@ public class Funcionario {
     }
 
     public Funcionario(){
-        this("Sem nome", "Não possui cargo");
+        this("", "");
     }
 
     public String getNome() {return nome;}
@@ -25,6 +25,18 @@ public class Funcionario {
 
     public void setNome(String nome) {this.nome = nome;}
     public void setCargo(String cargo) {this.cargo = cargo;}
+    public void setIdFuncionario(int idFuncionario) {this.idFuncionario = idFuncionario;}
+
+    public static Funcionario fromFileString(String linha) {
+        String[] partes = linha.split(";");
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNome(partes[0]);
+        funcionario.setCargo(partes[1]);
+        funcionario.setIdFuncionario(Integer.parseInt(partes[2]));
+
+        return funcionario;
+    }
 
     public String toString(){
         return "Funcionário: " + nome +

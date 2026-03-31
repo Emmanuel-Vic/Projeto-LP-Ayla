@@ -11,14 +11,29 @@ import java.util.List;
 public class SistemaFuneraria {
     public static void main(String[] args) {
         GerenciamentoFuneraria ger = new GerenciamentoFuneraria();
-        List<Cliente> clientesArquivo = new ArquivoUtils().carregar();
+        List<Cliente> clientesArquivo = new ArquivoUtils().carregarCl();
+        List<Funcionario> funcionariosArquivo = new ArquivoUtils().carregarFu();
+        List<Servico> servicosArquivo = new ArquivoUtils().carregarSe();
+        List<AtestadoDeObito> atestadoDeObitosArquivo = new ArquivoUtils().carregarAt();
 
         for (Cliente c : clientesArquivo) {
-            // Adiciona na lista interna do gerenciador
             if (ger.validarCPFCliente(c.getCpfCliente()) == null) {
                 ger.getClientes().add(c);
             }
         }
+
+        for (Funcionario f : funcionariosArquivo) {
+            ger.getFuncionarios().add(f);
+        }
+
+        for (Servico s : servicosArquivo) {
+            ger.getServicos().add(s);
+        }
+
+        for (AtestadoDeObito at : atestadoDeObitosArquivo){
+            ger.getAtestados().add(at);
+        }
+
         boolean continuar = true;
         while (continuar) {
             String inicio = JOptionPane.showInputDialog(null,  "====================" +
@@ -30,7 +45,10 @@ public class SistemaFuneraria {
                     "\n5. Buscar" +
                     "\n6. Novo pedido" +
                     "\n7. Listar Clientes" +
-                    "\n8. Sair e Salvar" +
+                    "\n8. Listar Funcionarios" +
+                    "\n9. Listar Serviços" +
+                    "\n10. Listar Atestados" +
+                    "\n11. Sair e Salvar" +
                     "\n====================");
             if (inicio == null) {
                 continuar = false;
@@ -55,8 +73,6 @@ public class SistemaFuneraria {
                 String cpfCliente = JOptionPane.showInputDialog(null, "Digite o CPF do Cliente");
                 try{
                     ger.adicionarCliente(nomeCliente, telefone, endereco,cpfCliente);
-                    ArquivoUtils.adicionarLinha("clientes.txt",
-                            nomeCliente + ";" + telefone + ";" + endereco + ";" + cpfCliente);
                     JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
                 } catch (ClienteJaExixteException e){
                     JOptionPane.showMessageDialog(null,e.getMessage());
@@ -145,20 +161,52 @@ public class SistemaFuneraria {
                 } else{
                     JOptionPane.showMessageDialog(null, "Esse CPF não foi localizado no registro!");
                 }
-            } else if(inicio.equals("7")){
+            }
+            else if(inicio.equals("7")){
                 List<Cliente> lista = ger.getClientes();
 
                 String resultado = "";
                 for (Cliente c : lista) {
-                    resultado += c.getNomeCliente() + " - " + c.getCpfCliente() + "\n";
+                    resultado += c.getNomeCliente()+ " - " + c.getTelefone() + " - " + c.getEndereco() +   " - " + c.getCpfCliente() + "\n";
                 }
 
                 JOptionPane.showMessageDialog(null, resultado);
-            }  else if(inicio.equals("8")) {
-                List<String> linhas = new ArrayList<>();
+            }
+            else if(inicio.equals("8")){
+                List<Funcionario> lista = ger.getFuncionarios();
+
+                String resultado = "";
+                for (Funcionario f : lista) {
+                    resultado += f.getNome()+ " - " + f.getCargo() + " - " + f.getIdFuncionario() + "\n";
+                }
+
+                JOptionPane.showMessageDialog(null, resultado);
+            }
+            else if(inicio.equals("9")){
+                List<Servico> lista = ger.getServicos();
+
+                String resultado = "";
+                for (Servico s : lista) {
+                    resultado += s.getDescricao()+ " - " + s.getPreco() + "\n";
+                }
+
+                JOptionPane.showMessageDialog(null, resultado);
+            }
+            else if(inicio.equals("10")){
+                List<AtestadoDeObito> lista = ger.getAtestados();
+
+                String resultado = "";
+                for (AtestadoDeObito at : lista) {
+                    resultado += at.getNome()+ " - " + at.getCpfFinado() + " - " + at.getDataMorte() +  " - " + at.getHoraMorte() +  " - " + at.getAltura() +  " - " + at.getCausaMorte() + "\n";
+                }
+
+                JOptionPane.showMessageDialog(null, resultado);
+            }
+            else if(inicio.equals("11")) {
+                List<String> linhas1 = new ArrayList<>();
 
                 for (Cliente c : ger.getClientes()) {
-                    linhas.add(
+                    linhas1.add(
                             c.getNomeCliente() + ";" +
                                     c.getTelefone() + ";" +
                                     c.getEndereco() + ";" +
@@ -166,10 +214,52 @@ public class SistemaFuneraria {
                     );
                 }
 
-                ArquivoUtils.escreverArquivo("clientes.txt", linhas);
+                ArquivoUtils.escreverArquivo("clientes.txt", linhas1);
+
+                List<String> linhas2 = new ArrayList<>();
+
+                for (Funcionario f : ger.getFuncionarios()) {
+                    linhas2.add(
+                            f.getNome() + ";" +
+                                    f.getCargo() + ";" +
+                                    f.getIdFuncionario()
+                    );
+                }
+
+                ArquivoUtils.escreverArquivo("funcionarios.txt", linhas2);
+
+                List<String> linhas3 = new ArrayList<>();
+
+                for (Servico s : ger.getServicos()) {
+                    linhas3.add(
+                            s.getDescricao() + ";" +
+                                    s.getPreco()
+                    );
+                }
+
+                ArquivoUtils.escreverArquivo("servicos.txt", linhas3);
+
+                List<String> linhas4 = new ArrayList<>();
+
+                for (AtestadoDeObito at : ger.getAtestados()) {
+                    linhas4.add(
+                            at.getNome() + ";" +
+                                    at.getCpfFinado() + ";" +
+                                    at.getDataMorte() + ";" +
+                                    at.getHoraMorte() + ";" +
+                                    at.getAltura() + ";" +
+                                    at.getCausaMorte()
+
+                    );
+                }
+
+                ArquivoUtils.escreverArquivo("atestados.txt", linhas4);
+
+
+
                 continuar = false;
-            } else{
-                JOptionPane.showMessageDialog(null,"Opção inválida");
+            } else {
+                JOptionPane.showMessageDialog(null, "Opção inválida");
             }
         }
     }

@@ -56,7 +56,21 @@ public class AtestadoDeObito {
     }
 
     public AtestadoDeObito(){
-        this("Sem CPF", "Sem nome", "Sem data", "Sem hora", 0.0,"Sem causa");
+        this("", "", "", "", 0.0,"");
+    }
+
+    public static AtestadoDeObito fromFileString(String linha) {
+        String[] partes = linha.split(";");
+
+        AtestadoDeObito atestadoDeObito = new AtestadoDeObito();
+        atestadoDeObito.setCpfFinado(partes[0]);
+        atestadoDeObito.setNome(partes[1]);
+        atestadoDeObito.setDataMorte(partes[2]);
+        atestadoDeObito.setHoraMorte(partes[3]);
+        atestadoDeObito.setAltura(Double.parseDouble(partes[4]));
+        atestadoDeObito.setCausaMorte(partes[5]);
+
+        return atestadoDeObito;
     }
 
     @Override
