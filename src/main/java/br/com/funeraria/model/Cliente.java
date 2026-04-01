@@ -40,6 +40,19 @@ public class Cliente {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return cpfCliente.equals(cliente.cpfCliente);
+    }
+
+    @Override
+    public int hashCode() {
+        return cpfCliente.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "Cliente: " + nomeCliente +
                 "\nDe CPF: " + cpfCliente +
